@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Verify Your Email — RealEstate Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f7f9;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrapper {
+            width: 100%;
+            background-color: #f4f7f9;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ── Header ── */
+        .header {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            padding: 40px 40px 30px;
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            margin: 8px 0 0;
+        }
+
+        /* ── Body ── */
+        .body {
+            padding: 40px;
+        }
+
+        .greeting {
+            color: #1f2937;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .message {
+            color: #6b7280;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        /* ── Button ── */
+        .btn-wrapper {
+            text-align: center;
+            margin: 10px 0 32px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #16a34a;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 16px 44px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 0 0 24px;
+        }
+
+        /* ── Link Fallback ── */
+        .link-label {
+            color: #9ca3af;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .link-url {
+            color: #16a34a;
+            font-size: 13px;
+            word-break: break-all;
+            margin-bottom: 28px;
+        }
+
+        /* ── Alert Boxes ── */
+        .alert {
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+        }
+
+        .alert-warning {
+            background-color: #fef9c3;
+            border-left: 4px solid #eab308;
+        }
+
+        .alert-warning p {
+            color: #713f12;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .alert-info {
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+        }
+
+        .alert-info p {
+            color: #14532d;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ── What's Next ── */
+        .steps-title {
+            color: #1f2937;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .steps-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+            counter-reset: steps;
+        }
+
+        .steps-list li {
+            color: #6b7280;
+            font-size: 13px;
+            padding: 6px 0 6px 28px;
+            position: relative;
+            line-height: 1.6;
+            counter-increment: steps;
+        }
+
+        .steps-list li::before {
+            content: counter(steps);
+            position: absolute;
+            left: 0;
+            top: 6px;
+            background-color: #16a34a;
+            color: #ffffff;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 18px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background-color: #f9fafb;
+            padding: 24px 40px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer-links {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            font-size: 12px;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .footer-copy {
+            color: #9ca3af;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .footer-address {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 620px) {
+            .body   { padding: 24px 20px; }
+            .header { padding: 28px 20px; }
+            .footer { padding: 20px; }
+            .btn    { padding: 14px 28px; font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="container">
+
+        <!-- ───── HEADER ───── -->
+        <div class="header">
+            <div class="header-icon">🏠</div>
+            <h1>Welcome to RealEstate Portal!</h1>
+            <p>Please verify your email to get started</p>
+        </div>
+
+        <!-- ───── BODY ───── -->
+        <div class="body">
+
+            <!-- Greeting -->
+            <p class="greeting">
+                Hi <span th:text="${name}">User</span>! 👋
+            </p>
+
+            <p class="message">
+                Thank you for creating an account with RealEstate Portal.
+                You're just one step away from finding your dream home.
+                Please verify your email address to activate your account.
+            </p>
+
+            <!-- Verify Button -->
+            <div class="btn-wrapper">
+                <a th:href="${verifyLink}"
+                   href="#"
+                   class="btn">
+                    ✅ Verify Email Address
+                </a>
+            </div>
+
+            <!-- Divider -->
+            <hr class="divider"/>
+
+            <!-- Link Fallback -->
+            <p class="link-label">
+                Button not working? Copy and paste this link:
+            </p>
+            <p class="link-url" th:text="${verifyLink}">
+                http://localhost:5173/verify-email?token=...
+            </p>
+
+            <!-- Expiry Warning -->
+            <div class="alert alert-warning">
+                <p>
+                    ⏰ <strong>This link will expire in 24 hours.</strong>
+                    If it expires, please register again to
+                    receive a new verification link.
+                </p>
+            </div>
+
+            <!-- What's Next -->
+            <div class="alert alert-info">
+                <p class="steps-title">🚀 What happens next?</p>
+                <ol class="steps-list">
+                    <li>Click the verify button above</li>
+                    <li>Login with your email and password</li>
+                    <li>Complete your profile</li>
+                    <li>Start browsing properties</li>
+                </ol>
+            </div>
+
+            <!-- Not You -->
+            <div class="alert alert-warning">
+                <p>
+                    🤔 Didn't create an account? You can safely
+                    ignore this email. No account will be activated
+                    without email verification.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- ───── FOOTER ───── -->
+        <div class="footer">
+
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact Support</a>
+            </div>
+
+            <p class="footer-copy">
+                © <span th:text="${#dates.year(#dates.createNow())}">
+                    2024
+                  </span>
+                RealEstate Portal. All rights reserved.
+            </p>
+
+            <p class="footer-address">
+                123 Real Estate Tower, MG Road,
+                Bhopal, Madhya Pradesh — 462001, India
+            </p>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
