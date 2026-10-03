@@ -17,7 +17,7 @@ public class SMPTTestController {
 	    try (Socket socket = new Socket()) {
 
 	        socket.connect(
-	            new InetSocketAddress("smtp.gmail.com", 587),
+	            new InetSocketAddress("smtp.resend.com", 2587),
 	            10000
 	        );
 
