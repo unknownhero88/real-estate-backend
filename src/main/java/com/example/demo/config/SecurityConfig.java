@@ -86,6 +86,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                             "/actuator/health",
                                 "/webjars/**"
+                            ,"/api/test/**"
                         ).permitAll()
 
                         // Role-based protected routes

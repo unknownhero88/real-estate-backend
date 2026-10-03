@@ -11,74 +11,55 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration config = new CorsConfiguration();
+		CorsConfiguration config = new CorsConfiguration();
 
-        // ─────────────────────────────────────────
-        // ALLOWED ORIGINS (React frontend URLs)
-        // ─────────────────────────────────────────
-        config.setAllowedOrigins(List.of(
-            "http://localhost:5173",   // Vite dev server
-            "http://localhost:3000",   // fallback
-            "http://localhost:4173",   // Vite preview
-                "http://localhost:5174",
-                "http://192.168.1.50:5173"
-        ));
+		// ─────────────────────────────────────────
+		// ALLOWED ORIGINS (React frontend URLs)
+		// ─────────────────────────────────────────
+		config.setAllowedOrigins(List.of("http://localhost:5173", // Vite dev server
+				"http://localhost:3000", // fallback
+				"http://localhost:4173", // Vite preview
+				"http://localhost:5174", "http://192.168.1.50:5173", "https://bhoomiconnect.vercel.app/"
 
-        // ─────────────────────────────────────────
-        // ALLOWED HTTP METHODS
-        // ─────────────────────────────────────────
-        config.setAllowedMethods(List.of(
-            "GET",
-            "POST",
-            "PUT",
-            "PATCH",
-            "DELETE",
-            "OPTIONS"
-        ));
+		));
 
-        // ─────────────────────────────────────────
-        // ALLOWED HEADERS
-        // ─────────────────────────────────────────
-        config.setAllowedHeaders(List.of(
-            "Authorization",
-            "Content-Type",
-            "Accept",
-            "Origin",
-            "X-Requested-With",
-            "Access-Control-Request-Method",
-            "Access-Control-Request-Headers"
-        ));
+		// ─────────────────────────────────────────
+		// ALLOWED HTTP METHODS
+		// ─────────────────────────────────────────
+		config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 
-        // ─────────────────────────────────────────
-        // EXPOSED HEADERS
-        // Headers frontend can read from response
-        // ─────────────────────────────────────────
-        config.setExposedHeaders(List.of(
-            "Authorization",
-            "Access-Control-Allow-Origin",
-            "Access-Control-Allow-Credentials"
-        ));
+		// ─────────────────────────────────────────
+		// ALLOWED HEADERS
+		// ─────────────────────────────────────────
+		config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin", "X-Requested-With",
+				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
 
-        // ─────────────────────────────────────────
-        // ALLOW CREDENTIALS (cookies, auth headers)
-        // ─────────────────────────────────────────
-        config.setAllowCredentials(true);
+		// ─────────────────────────────────────────
+		// EXPOSED HEADERS
+		// Headers frontend can read from response
+		// ─────────────────────────────────────────
+		config.setExposedHeaders(
+				List.of("Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
 
-        // ─────────────────────────────────────────
-        // PREFLIGHT CACHE DURATION (1 hour)
-        // Browser won't send OPTIONS request again
-        // for 1 hour for same endpoint
-        // ─────────────────────────────────────────
-        config.setMaxAge(3600L);
+		// ─────────────────────────────────────────
+		// ALLOW CREDENTIALS (cookies, auth headers)
+		// ─────────────────────────────────────────
+		config.setAllowCredentials(true);
 
-        // Apply config to ALL endpoints
-        UrlBasedCorsConfigurationSource source =
-            new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
+		// ─────────────────────────────────────────
+		// PREFLIGHT CACHE DURATION (1 hour)
+		// Browser won't send OPTIONS request again
+		// for 1 hour for same endpoint
+		// ─────────────────────────────────────────
+		config.setMaxAge(3600L);
 
-        return source;
-    }
+		// Apply config to ALL endpoints
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+
+		return source;
+	}
 }
